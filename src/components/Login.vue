@@ -27,8 +27,8 @@ export default {
     return {
       // 表单属性
       loginForm: {
-        username: '',
-        password: ''
+        username: 'super@a.com',
+        password: '123123'
       },
       // 表单验证规则
       rules: {

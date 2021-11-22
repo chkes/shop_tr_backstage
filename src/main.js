@@ -10,6 +10,13 @@ import './assets/fonts/iconfont.css'
 import axios from 'axios'
 // 设置请求根路径
 axios.defaults.baseURL = 'https://api.shop.eduwork.cn'
+// axios请求拦截
+axios.interceptors.request.use(config => {
+  // 为请求头对象，添加 Token 验证的 Authorization 字段
+  config.headers.Authorization = window.sessionStorage.getItem('token')
+  return config
+})
+
 Vue.prototype.$http = axios
 
 Vue.config.productionTip = false
