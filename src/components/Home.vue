@@ -36,7 +36,6 @@
               <i :class="iconsObj[item.id]"></i>
               <span class="text">{{ item.name }}</span>
             </template>
-            <el-menu-item-group>
               <el-menu-item
                 :index="'/'+ pathsObj[item1.id]"
                 v-for="(item1, i1) in item.children"
@@ -46,7 +45,6 @@
                 <i class="el-icon-menu"></i>
                 <span>{{ item1.name }}</span>
               </el-menu-item>
-            </el-menu-item-group>
           </el-submenu>
         </el-menu>
         <!-- 侧边栏菜单区域 -->
