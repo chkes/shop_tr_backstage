@@ -82,7 +82,7 @@ export default {
       // path 列表
       pathsObj: {
         25: 'users',
-        27: 'categary',
+        27: 'category',
         28: 'addCategary',
         30: 'users',
         31: 'users',
@@ -108,14 +108,9 @@ export default {
     // 获取菜单列表
     async getMenuList() {
       // 请求菜单列表
-      try {
-        const res = await this.$http.get('/api/admin/menus')
-        if (res.status !== 200) return this.$message.error('请求菜单失败')
-        this.menuList = res.data
-        console.log(this.menuList)
-      } catch {
-        this.$message.error('请求菜单失败')
-      }
+      const res = await this.$http.get('/api/admin/menus')
+      if (res.status !== 200) return this.$message.error('请求菜单失败')
+      this.menuList = res.data
     },
     // 点击折叠与展开
     changeCollapse() {

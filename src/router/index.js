@@ -4,6 +4,8 @@ import Login from '../components/Login.vue'
 import Home from '../components/Home.vue'
 import Welcome from '../components/Welcome.vue'
 import Users from '../components/user/Users.vue'
+import Cate from '../components/goods/Cate.vue'
+import addCate from '../components/goods/addCate.vue'
 
 Vue.use(VueRouter)
 
@@ -32,7 +34,9 @@ const routes = [
         path: '/welcome',
         component: Welcome
       },
-      { path: '/users', component: Users }
+      { path: '/users', component: Users },
+      { path: '/category', component: Cate },
+      { path: '/addCategary', component: addCate }
     ]
   }
 ]
@@ -46,6 +50,7 @@ router.beforeEach((to, from, next) => {
   if (to.path === '/login') return next()
   // 从 sessionStorage 中获取到 保存的 token 值
   const tokenStr = window.sessionStorage.getItem('token')
+  console.log(!tokenStr)
   // 没有token，强制跳转到登录页
   if (!tokenStr) return next('/login')
   next()
