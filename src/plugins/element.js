@@ -1,5 +1,6 @@
 import Vue from 'vue'
-import { Result, Button, Form, FormItem, Upload, Alert, Checkbox, CheckboxGroup, Step, Steps, Tabs, TabPane, Cascader, DropdownMenu, DropdownItem, Input, Message, Container, Header, Aside, Main, Menu, Submenu, MenuItem, MenuItemGroup, Breadcrumb, BreadcrumbItem, Select, Option, Card, Col, Row, Table, TableColumn, Switch, Tooltip, Pagination, Dialog, Tag, MessageBox, Tree, Dropdown } from 'element-ui'
+import { Image, Result, Button, Form, FormItem, Upload, Alert, Checkbox, CheckboxGroup, Step, Steps, Tabs, TabPane, Cascader, DropdownMenu, DropdownItem, Input, Message, Container, Header, Aside, Main, Menu, Submenu, MenuItem, MenuItemGroup, Breadcrumb, BreadcrumbItem, Select, Option, Card, Col, Row, Table, TableColumn, Switch, Tooltip, Pagination, Dialog, Tag, MessageBox, Tree, Dropdown } from 'element-ui'
+Vue.use(Image)
 Vue.use(Result)
 Vue.use(Button)
 Vue.use(Form)
