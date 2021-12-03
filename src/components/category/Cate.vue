@@ -36,6 +36,9 @@
             v-model="scope.row.status"
             active-color="#13ce66"
             inactive-color="#dcdfe6"
+            :active-value="1"
+            :inactive-value="0"
+            @change="switchchange(scope.row.id)"
           >
           </el-switch>
         </template>
@@ -99,10 +102,12 @@
       </span>
     </el-dialog>
     <!-- 添加分类信息模态框 -->
-    <el-dialog title="添加分类"
-    :visible.sync="addDialogVisible"
-    width="30%"
-    @close="addDialogClosed">
+    <el-dialog
+      title="添加分类"
+      :visible.sync="addDialogVisible"
+      width="30%"
+      @close="addDialogClosed"
+    >
       <el-form
         label-width="100px"
         ref="addFormRef"
@@ -112,15 +117,15 @@
         <el-form-item label="分类名" prop="name">
           <el-input v-model="addCate.name"></el-input>
         </el-form-item>
-         <el-form-item label="父级分类" >
-           <el-cascader
-          v-model="addCate.pid"
-          :options="categoryList"
-          :props="cateProps"
-          @change="addhandleChange"
-          clearable
-          change-on-select
-        ></el-cascader>
+        <el-form-item label="父级分类">
+          <el-cascader
+            v-model="addCate.pid"
+            :options="categoryList"
+            :props="cateProps"
+            @change="addhandleChange"
+            clearable
+            change-on-select
+          ></el-cascader>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -261,6 +266,11 @@ export default {
     // 添加分类对话框关闭事件
     addDialogClosed() {
       this.$refs.addFormRef.resetFields()
+    },
+    // 是否启用变化
+    async switchchange(category) {
+      await this.$http.patch(`/api/admin/category/${category}/status`)
+      this.getCategoryList()
     }
   },
   created() {
@@ -273,7 +283,7 @@ export default {
 .el-row {
   margin-bottom: 15px;
 }
-.el-cascader{
+.el-cascader {
   width: 100%;
 }
 </style>

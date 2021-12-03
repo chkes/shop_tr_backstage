@@ -4,10 +4,11 @@ import Login from '../components/Login.vue'
 import Home from '../components/Home.vue'
 import Welcome from '../components/Welcome.vue'
 import Users from '../components/user/Users.vue'
-import Cate from '../components/goods/Cate.vue'
-import addCate from '../components/goods/addCate.vue'
+import Cate from '../components/category/Cate.vue'
+import addCate from '../components/category/addCate.vue'
 import goodsList from '../components/goods/goodsList.vue'
 import addGoods from '../components/goods/addgoods.vue'
+import Slides from '../components/slides/Slides.vue'
 
 Vue.use(VueRouter)
 
@@ -24,7 +25,8 @@ const routes = [
       { path: '/category', component: Cate },
       { path: '/addCategary', component: addCate },
       { path: '/goodsList', component: goodsList },
-      { path: '/addgoods', component: addGoods }
+      { path: '/addgoods', component: addGoods },
+      { path: '/slides', component: Slides }
     ]
   }
 ]

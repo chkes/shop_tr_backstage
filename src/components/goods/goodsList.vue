@@ -21,12 +21,15 @@
             <el-button
               slot="append"
               icon="el-icon-search"
-                @click="serachGoods"
+              @click="serachGoods"
             ></el-button> </el-input
         ></el-col>
         <el-col :span="4"
-          ><el-button class="addUser" type="primary"
-            @click="openaddDialogVisibles">添加商品</el-button
+          ><el-button
+            class="addUser"
+            type="primary"
+            @click="openaddDialogVisibles"
+            >添加商品</el-button
           ></el-col
         >
       </el-row>
@@ -53,23 +56,28 @@
         <el-table-column prop="stock" label="库存"> </el-table-column>
         <el-table-column prop="sales" label="销量"> </el-table-column>
         <el-table-column prop="price" label="价格"> </el-table-column>
-        <el-table-column label="是否上架(接口bug)">
+        <el-table-column label="是否上架">
           <template slot-scope="scope">
             <el-switch
               v-model="scope.row.is_on"
               active-color="#13ce66"
               inactive-color="#dcdfe6"
-              @change="ison(scope.row.id)"
+              :active-value="1"
+              :inactive-value="0"
+              @change="is_on(scope.row.id)"
             >
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="是否推荐(接口bug)">
+        <el-table-column label="是否推荐">
           <template slot-scope="scope">
             <el-switch
               v-model="scope.row.is_recommend"
               active-color="#13ce66"
               inactive-color="#dcdfe6"
+              :active-value="1"
+              :inactive-value="0"
+              @change="is_recommend(scope.row.id)"
             >
             </el-switch>
           </template>
@@ -154,7 +162,7 @@
         <el-button type="primary" @click="editGoodsInfos">确 定</el-button>
       </span>
     </el-dialog>
-        <!-- 添加商品模态框 -->
+    <!-- 添加商品模态框 -->
     <el-dialog
       title="添加商品"
       :visible.sync="addDialogVisible"
@@ -211,7 +219,6 @@
 export default {
   data() {
     return {
-
       // 商品分类请求参数
       goodsParams: {
         // 搜索框内容
@@ -258,9 +265,7 @@ export default {
       currentGoodsID: '',
       // 验证规则
       addFormrules: {
-        title: [
-          { required: true, message: '请输入书名', trigger: 'blur' }
-        ],
+        title: [{ required: true, message: '请输入书名', trigger: 'blur' }],
         category_id: [
           { required: true, message: '请输入分类id', trigger: 'blur' }
         ],
@@ -275,12 +280,8 @@ export default {
           { required: true, message: '请输入库存', trigger: 'blur' },
           { min: 1, max: 8, message: '长度在 1 到 8 个字符', trigger: 'blur' }
         ],
-        cover: [
-          { required: true, message: '请输入封面', trigger: 'blur' }
-        ],
-        details: [
-          { required: true, message: '请输入详情', trigger: 'blur' }
-        ]
+        cover: [{ required: true, message: '请输入封面', trigger: 'blur' }],
+        details: [{ required: true, message: '请输入详情', trigger: 'blur' }]
       }
     }
   },
@@ -290,13 +291,13 @@ export default {
       const res = await this.$http.get('/api/admin/goods', {
         params: this.goodsParams
       })
-      console.log(res.data)
       // 当前商品页
       this.goodsParams.current = res.data.meta.pagination.current_page
       // 当前商品总数
       this.total = res.data.meta.pagination.total
       // 赋值当前商品列表
       this.goodsList = res.data.data
+      // console.log(this.goodsList)
     },
     // 打开图片模态框
     openImgdialogVisible(info) {
@@ -311,9 +312,16 @@ export default {
       this.getGoodsList()
     },
     // 当前商品是否上架
-    async ison(id) {
+    async is_on(id) {
       await this.$http.patch(`/api/admin/goods/${id}/on`)
+      this.getGoodsList()
     },
+    // 当前商品是否推荐
+    async is_recommend(id) {
+      await this.$http.patch(`/api/admin/goods/${id}/recommend`)
+      this.getGoodsList()
+    },
+
     // 监听修改商品对话框的关闭事件
     editDialogClosed() {
       this.$refs.editFormRef.resetFields()
@@ -341,7 +349,10 @@ export default {
     },
     // 修改商品
     async editGoodsInfos() {
-      await this.$http.put(`/api/admin/goods/${this.currentGoodsID}`, this.editGoodsInfo)
+      await this.$http.put(
+        `/api/admin/goods/${this.currentGoodsID}`,
+        this.editGoodsInfo
+      )
       this.editDialogVisible = false
       // 重新请求商品数据
       this.getGoodsList()

@@ -88,7 +88,7 @@ export default {
         31: 'addgoods',
         33: 'users',
         35: 'users',
-        37: 'users',
+        37: 'slides',
         38: 'users',
         40: 'users',
         41: 'users'

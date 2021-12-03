@@ -52,6 +52,8 @@
               v-model="scope.row.is_locked"
               active-color="#13ce66"
               inactive-color="#dcdfe6"
+                            :active-value="1"
+              :inactive-value="0"
               @change="isLock(scope.row.id)"
             >
             </el-switch>
@@ -265,7 +267,6 @@ export default {
     async isLock(id) {
       // 禁用和启用
       await this.$http.patch(`/api/admin/users/${id}/lock`)
-      // console.log(res)
       // 重新请求接口
       this.getUsersList()
     },
